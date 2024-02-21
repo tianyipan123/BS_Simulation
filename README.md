@@ -1,5 +1,8 @@
 # Numerical Methods in Black-Scholes Equation
 
+![](./assets/3.png)
+![](./assets/6.png)
+
 ## Table of Contents
 
 - [I. Introduction](#i-introduction)
