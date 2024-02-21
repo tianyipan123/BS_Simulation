@@ -4,8 +4,14 @@
 
 - [I. Introduction](#i-introduction)
 - [II. Preliminaries](#ii-preliminaries)
-- [III. Numerical Solution to ODE](iii-numerical-solution-to-ode)
+  - [1. Analytic Solution to Ordinary Differential Equations](#1-analytic-solution-to-ordinary-dfferential-equations)
+  - [2. Finite Difference Method](#2-finite-difference-method)
+- [III. Numerical Solution to ODE](iii-numerical-solution-to-ode)\
+  - [1. Explicit Method](#1-explicit-method)
+  - [2. Implicit Method](#2-implicit-method)
 - [IV. Numerical Solution to Black-Scholes Equation](#iv-numerical-solution-to-black-scholes-equation)
+  - [1. Explicit Method](#1-explicit-method-1)
+  - [2. Implicit Method](#2-implicit-method-1)
 - [V. Conclusion](#v-conclusion)
 - [VI. References](#vi-references)
 
