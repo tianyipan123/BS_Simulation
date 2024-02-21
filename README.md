@@ -1,5 +1,14 @@
 # Numerical Methods in Black-Scholes Equation
 
+## Table of Contents
+
+- [I. Introduction](#i-introduction)
+- [II. Preliminaries](#ii-preliminaries)
+- [III. Numerical Solution to ODE](iii-numerical-solution-to-ode)
+- [IV. Numerical Solution to Black-Scholes Equation](#iv-numerical-solution-to-black-scholes-equation)
+- [V. Conclusion](#v-conclusion)
+- [VI. References](#vi-references)
+
 ## I. Introduction
 
 Numerical methods are widely used in quantitative finance. For example, the Monte Carlo method is used for option pricing and net present value (NPV) analysis;
@@ -91,7 +100,7 @@ The error in each step is $\mathcal{O}(h^2)$ and the total error from $0$ to $t$
 
 Here is a simulation of Euler’s method for different step size for logistic equation:
 
-**graph1**
+![](./assets/1.png)
 
 We can see that as the step size $h$ becomes smaller, the approximated solution converges to the true one.
 
@@ -109,7 +118,7 @@ $$
 
 However, for a huge negative $\lambda \ll 0$, the Euler's method behaves poorly:
 
-**graph2**
+![](./assets/2.png)
 
 We can see that with $h$ large, the numerical solution will fluctuate around the true solution because of the initial huge negative slope, so solution will “overshoot” and oscillate. Hence for explicit method, one must take a much smaller $h$ to get accurate approximations, but this will make the computation on the whole input space much slower. To resolve this issue, the implicit method is introduced, which can handle this situation more elegantly.
 
@@ -135,7 +144,7 @@ $$
 
 Here is the simulated result:
 
-**graph3**
+![](./assets/3.png)
 
 Also note that if the function $f$ is non-linear, as is often the case, one should use iterative methods to find the root of this non-linear equation (e.g., bisection method, Newton-Raphson method). So, it is always more costly in computation for the implicit method.
 
@@ -157,7 +166,7 @@ where $V(S, t)$ is the payoff of the option, $t$ time, $S$ the price of the unde
 
 To solve the PDE, we must discretize the space, similar to how we partition the domain in 1-dimensional case. With two variables, we should partition the input space into small 2D grids, as the following figure shows:
 
-**graph4**
+![](./assets/4.png)
 
 Note that the red line represents boundary conditions.
 
@@ -177,15 +186,15 @@ The reason why we use central difference in 3) is because to approximate $\frac{
 
 Therefore, we establish a linear relationship between the four variables $V_{i,j}, V_{i-1, j}, V_{i, j+1}, V_{i, j-1}$, as the following computational molecule shows:
 
-**graph5**
+![](./assets/5.png)
 
 Since we compute values backward, as the right three values are known, we have a direct formula to calculate $V_{i-1, j}$. Taking $\sigma^2 = 0.072, S_{\min} = 0, S_\max = 300, r = 4\%, K = 250$ which is the strike price, we can compute the numerical solution, plotted with respect to $t$ and $S$:
 
-**graph6**
+![](./assets/6.png)
 
 Note that when I am trying to discretize the space, the upper limit for $S$ segmentation is around $m=33$ (with $n = 100$), so if $m \gg 33$, the value $V$ fluctuates extremely large, making the estimation invalid. This is unsatisfactory, since the space is still sparse, and mispricing of options will incur huge costs in practice. Also, the value deviates from the true solution given by [4]:
 
-**graph7**
+![](./assets/7.png)
 
 This means there is still gaps between the true solution and the approximation, especially when the time is farther from the exercise time. Hence, we can develop the implicit method for this PDE to achieve more stability.
 
@@ -257,17 +266,17 @@ $$
 
 where $I$ is $n-1 \times n-1$ identity matrix. The computational molecule is as follows:
 
-**graph8**
+![](./assets/8.png)
 
 For the same partition grid as the upper limit for explicit method, we get the following error estimate:
 
-**graph9**
+![](./assets/9.png)
 
 Note that this is better than the explicit method, where the max error is smaller. In addition, the benefits of implicit method is its stability. If we partition the $t-S$ space with $m=n=1000$, we get the following estimate of $V$ and error histogram:
 
-**graph10**
+![](./assets/10.png)
 
-**graph11**
+![](./assets/11.png)
 
 The max error is smaller than the the previous discretization. This shows that the cancelation error and rounding error involved in dividing by a small number introduced though finer grid is less than the discretization error (truncation error) when estimating the derivatives.
 
